@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "start": "tsc && vite build && node ./server.js"
+    "start": "node ./server.js"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",
