@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => navigate('auth'));
 
 document.addEventListener('click',  e => {
   const page = (e.target as Element).getAttribute('page');
-  console.log(e.target)
 
   if (page) {
     navigate(page);
