@@ -7,8 +7,12 @@ const PORT = 3000;
 
 app.use(express.static('./dist'));
 
-app.get('*', function(req, res) {
+app.get('/', function(req, res) {
   res.status(200).sendFile(path.join(__dirname, './dist/index.html'))
+})
+
+app.get('*', function(req, res) {
+  res.redirect('/');
 })
 
 app.listen(PORT, function () {
