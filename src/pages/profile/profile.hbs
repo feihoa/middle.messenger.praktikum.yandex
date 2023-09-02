@@ -1,0 +1,16 @@
+{{#> Page type="profile" }}
+  {{> Link label="Назад" page="main" class="upper" }}
+  {{> Icon alt="avatar" }}
+  <h1 class="page__header-text">Имя</h1>
+  {{#> Form}}
+    {{> Input label="Почта" type="email" name="email" inputLayoutClass="horizontal" }}
+    {{> Input label="Логин" type="text" name="login" inputLayoutClass="horizontal" }}
+    {{> Input label="Имя" type="text" name="first_name" inputLayoutClass="horizontal" }}
+    {{> Input label="Фамилия" type="text" name="second_name" inputLayoutClass="horizontal" }}
+    {{> Input label="Имя в чате" type="text" name="display_name" inputLayoutClass="horizontal" }}
+    {{> Input label="Телефон" type="tel" name="phone" inputLayoutClass="horizontal" }}
+    {{> Button label="Сохранить" type="submit" }}
+  {{/Form}}
+  {{> Button label="Изменить пароль" type="text" }}
+  {{> Link label="Выйти" page="auth" class="warning" }}
+{{/Page}}
