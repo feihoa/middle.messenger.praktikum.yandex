@@ -1,0 +1,50 @@
+@import '../../assets/variables.less';
+
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 322px;
+  align-items: baseline;
+
+  &:last-of-type {
+    padding-bottom: 20px;
+  }
+
+  &__label {
+    color: @label-color;
+    font-size: @label-size;
+    font-weight: 500;
+    text-align: left;
+  }
+
+  &__input, &__input:focus, &__input:active, &__input:focus-visible {
+    max-height: 24px;
+    height: 30px;
+    border: @input-border;
+    border-radius: 7px;
+    box-sizing: border-box;
+    outline: none;
+    padding: 10px;
+    display: block;
+    min-width: 200px;
+  }
+
+  &_horizontal {
+    width: 100%;
+    .input-container__label {
+      min-width: 100px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .input-container__input {
+      border: 0;
+      border-radius: 0;
+      border-bottom: @input-border;
+    }
+  }
+}

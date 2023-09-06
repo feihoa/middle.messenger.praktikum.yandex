@@ -1,0 +1,43 @@
+@import '../../assets/variables.less';
+
+
+.popup {
+  background: @popup-color;
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  box-shadow: @box-shadow;
+  padding: 20px;
+  border: @block-border;
+  min-width: 300px;
+  min-height: 325px;
+  z-index: 1001;
+
+  &:empty {
+    display: none;
+  }
+
+  &__header-text {
+    font-size: @header-text-size;
+    padding-bottom: 10px;
+  }
+
+  &__close-button {
+    display: block;
+    background: none;
+    border: none;
+    width: fit-content;
+    padding: 0;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+  }
+}
+
+.popup_overlay {
+  position: absolute;
+  width: 100%;
+  z-index: 1000;
+  background: @popup-background-color;
+}

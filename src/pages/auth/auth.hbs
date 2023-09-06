@@ -1,0 +1,9 @@
+{{#> Page type="auth" }}
+  <h1 class="page__header-text">Вход</h1>
+  {{#> Form}}
+      {{> Input label="Логин" type="text" name="login" }}
+      {{> Input label="Пароль" type="password" name="password" }}
+      {{> Button label="Войти" page="main" }}
+  {{/Form}}
+  {{> Link label="Зарегистрироваться" page="register" }}
+{{/Page}}

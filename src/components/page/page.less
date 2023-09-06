@@ -1,0 +1,28 @@
+.page {
+  font-family: Inter, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+
+  &_auth, &_register, &_profile {
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.14);
+    padding: 10px 10px 20px 10px;
+    width: 365px;
+    margin-top: 20px;
+  }
+
+  &_main {
+    flex-direction: row;
+    align-items: stretch;
+    width: 100%;
+    justify-content: flex-start;
+    height: 100vh;
+  }
+
+  .header-text {
+    text-align: center;
+  }
+}
