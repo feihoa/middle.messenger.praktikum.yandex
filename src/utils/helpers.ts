@@ -9,8 +9,8 @@ Handlebars.registerHelper('ifeq', function <T>(this: T, ...args: CompareValue[])
   if (!args) {
     return options.inverse(this);
   }
-  // @ts-ignore
-  if (!args.some((el, index, arr) => el !== arr[0])) { return options.fn(this); }
+
+  if (!args.some((el, _index, arr) => el !== arr[0])) { return options.fn(this); }
   return options.inverse(this);
 });
 
@@ -21,7 +21,6 @@ Handlebars.registerHelper('ifnoteq', function <T>(this: T, ...args: CompareValue
     return options.inverse(this);
   }
 
-  // @ts-ignore
-  if (args.some((el, index, arr) => el !== arr[0])) { return options.fn(this); }
+  if (args.some((el, _index, arr) => el !== arr[0])) { return options.fn(this); }
   return options.inverse(this);
 });

@@ -10,7 +10,7 @@ interface IProps {
 }
 
 export class Icon extends Block {
-  constructor(props: IProps) {console.log(props.src)
+  constructor(props: IProps) {
     super(props);
     this.props.events = {
       click: this.props.onClick,

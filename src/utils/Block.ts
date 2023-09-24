@@ -19,8 +19,6 @@ class Block {
   public children: Record<string, Block>;
   private eventBus: () => EventBus;
   private _element: HTMLElement | null = null;
-  // @ts-ignore
-  private _meta: { props: Record<string, Block>; };
 
   //может быть любым
   //eslint-disable-next-line
@@ -28,10 +26,6 @@ class Block {
     const eventBus = new EventBus();
 
     const { props, children } = this._getChildrenAndProps(propsWithChildren);
-
-    this._meta = {
-      props
-    };
 
     this.children = children;
     this.props = this._makePropsProxy(props);
