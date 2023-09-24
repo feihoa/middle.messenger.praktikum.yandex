@@ -1,0 +1,18 @@
+<div class="input-upload">
+  {{{ Input
+    classNames="input-upload__input"
+    ref="input"
+    type='file'
+    name=name
+    accept="image/png, image/jpeg"
+    onChange=onChange
+  }}}
+  {{#if text}}
+    <span class="input-upload__text">{{ text }}</span>
+    <span class="input-container__error">
+      {{{ ErrorLine error=error ref="errorLine"}}}
+    </span>
+  {{else}}
+    <img alt="attach" class="attach">
+  {{/if}}
+</div>

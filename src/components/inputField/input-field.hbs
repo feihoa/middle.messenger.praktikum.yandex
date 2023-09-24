@@ -1,0 +1,16 @@
+<div class="input-container input-container_{{inputLayoutClass}} {{#if error}}input__error{{/if}}">
+  <label class="input-container__label">{{label}}
+    {{{ Input
+        classNames="input-container__input"
+        ref="input"
+        type=type
+        name=name
+        placeholder=placeholder
+        onBlur=onBlur
+        onEnter=onEnter
+    }}}
+  </label>
+  <span class="input-container__error">
+    {{{ ErrorLine error=error ref="errorLine"}}}
+  </span>
+</div>

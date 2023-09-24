@@ -1,19 +1,6 @@
 {{#> Page type="main" }}
-  <section class="page-main__section page-main__chats-list-section">
-    <nav class="page-main__menu">
-      <ul>
-        <li>{{> Link label="Профиль" page="profile" class="upper" }}</li>
-        <li>{{> Link label="404" page="404" class="upper" }}</li>
-        <li>{{> Link label="500" page="500" class="upper" }}</li>
-      </ul>
-    </nav>
-    {{!-- {{#> Form}}
-      {{> Input label="Поиск" type="text" name="search" }}
-    {{/Form}}
-    {{> ChatList }} --}}
-  </section>
-  <section class="page-main__section page-main__chat-section">
-    {{!-- {{> Chat }} --}}
-    <h1 class="page__header-text">Страница в разработке</h1>
-  </section>
+  {{{ ChatListSection }}}
+  {{{ ChatSection onAdd=onAdd onRemove=onRemove}}}
+  {{{ RemoveAddUserModal ref="addPopup" btnLabel="Добавить" title="Добавить пользователя" }}}
+  {{{ RemoveAddUserModal ref="removePopup" btnLabel="Удалить" title="Удалить пользователя" }}}
 {{/Page}}

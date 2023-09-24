@@ -1,0 +1,12 @@
+<section class="chats-list-section">
+  {{{ Link label="Профиль" page="profile" class="upper" }}}
+  <div class="form-container">
+    {{#> Form formLayout="horizontal"}}
+      {{{ InputField label="" placeholder="Поиск" type="text" ref="search" name="search" onEnter=onSearch validate=validate.search }}}
+      <div class="form-container__button">
+        {{{ Button label="🡆" type="submit" class="next" onClick=onSearch }}}
+      </div>
+    {{/Form}}
+  </div>
+  {{{ ChatList }}}
+</section>

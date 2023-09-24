@@ -1,3 +1,6 @@
+@import '../../assets/variables.less';
+
+
 .button {
   cursor: pointer;
   width: 100%;
@@ -7,4 +10,27 @@
   border-radius: 3%;
   background: transparent;
   margin-bottom: 15px;
+
+  &__next {
+    max-width: 20px;
+    max-height: 20px;
+    min-height: 20px;
+    margin: 3px 0 0;
+    background: @highlight-color;
+    border: none;
+    color: @white-color;
+    border-radius: 50%;
+  }
+
+  &__close-popup {
+    display: block;
+    background: none;
+    border: none;
+    width: fit-content;
+    padding: 0;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+  }
 }

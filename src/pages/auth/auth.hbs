@@ -1,9 +1,9 @@
 {{#> Page type="auth" }}
   <h1 class="page__header-text">Вход</h1>
   {{#> Form}}
-      {{> Input label="Логин" type="text" name="login" }}
-      {{> Input label="Пароль" type="password" name="password" }}
-      {{> Button label="Войти" page="main" }}
+    {{{ InputField label="Логин" type="text" name="login" ref="login" validate=validate.login }}}
+    {{{ InputField label="Пароль" type="password" name="password" ref="password" validate=validate.password }}}
+    {{{ Button label="Войти" onClick=onAuth }}}
   {{/Form}}
-  {{> Link label="Зарегистрироваться" page="register" }}
+  {{{ Link label="Зарегистрироваться" page="register" }}}
 {{/Page}}

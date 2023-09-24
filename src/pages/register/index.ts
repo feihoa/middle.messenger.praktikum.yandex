@@ -1,2 +1,2 @@
 import './register.less'
-export { default as RegisterPage } from './register.hbs?raw';
+export { RegisterPage } from './register.ts';

@@ -1,14 +1,14 @@
 {{#> Page type="register" }}
   <h1 class="page__header-text">Регистрация</h1>
   {{#> Form}}
-    {{> Input label="Почта" type="email" name="email" }}
-    {{> Input label="Логин" type="text" name="login" }}
-    {{> Input label="Имя" type="text" name="first_name" }}
-    {{> Input label="Фамилия" type="text" name="second_name" }}
-    {{> Input label="Телефон" type="tel" name="phone" }}
-    {{> Input label="Пароль" type="password" name="password" }}
-    {{> Input label="Повторите пароль" type="password" name="password" }}
-    {{> Button label="Зарегистрироваться" page="auth" }}
+    {{{ InputField label="Почта" type="email" name="email" ref="email" validate=validate.email }}}
+    {{{ InputField label="Логин" type="text" name="login" ref="login" validate=validate.login }}}
+    {{{ InputField label="Имя" type="text" name="first_name" ref="fname" validate=validate.fname }}}
+    {{{ InputField label="Фамилия" type="text" name="second_name" ref="sname" validate=validate.sname }}}
+    {{{ InputField label="Телефон" type="tel" name="phone" ref="phone" validate=validate.phone }}}
+    {{{ InputField label="Пароль" type="password" name="password" ref="password" validate=validate.password }}}
+    {{{ InputField label="Повторите пароль" type="password" name="password" ref="rePassword" validate=validate.rePassword }}}
+    {{{ Button label="Зарегистрироваться" onClick=onRegister }}}
   {{/Form}}
-  {{> Link label="Войти" page="auth" }}
+  {{{ Link label="Войти" page="auth" }}}
 {{/Page}}

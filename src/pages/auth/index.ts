@@ -1,2 +1,2 @@
 import './auth.less';
-export { default as AuthPage } from './auth.hbs?raw';
+export { AuthPage } from './auth.ts';

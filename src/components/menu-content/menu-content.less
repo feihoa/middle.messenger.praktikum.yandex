@@ -1,0 +1,21 @@
+@import '../../assets/variables.less';
+
+
+.menu { 
+  &__content {
+    height: fit-content;
+    position: absolute;
+    width: 140px;
+    right: 40px;
+    background: white;
+    padding: 10px 5px 5px;
+    display: none;
+    box-shadow: @box-shadow;
+  }
+}
+
+.opened {
+  .menu__content {
+    display: block;
+  }
+}

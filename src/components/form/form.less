@@ -5,10 +5,22 @@
   align-items: center;
   gap: 16px;
   overflow: auto;
-  width: 100%;
+  width: 75%;
   
   .buttons {
     padding-top: 10px;
     width: 100%;
+  }
+
+  &_horizontal {
+    width: 95%;
+    flex-direction: row;
+    gap: 8px;
+    align-items: start;
+
+    .buttons {
+      padding-top: 0;
+      width: fit-content;
+    }
   }
 }

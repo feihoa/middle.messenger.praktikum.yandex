@@ -1,16 +1,18 @@
 {{#> Page type="profile" }}
-  {{> Link label="Назад" page="main" class="upper" }}
-  {{> Icon alt="avatar" }}
+  {{{ Link label="Назад" page="main" class="upper" }}}
+  {{{ Icon alt="avatar" onClick=onUploadIcon}}}
   <h1 class="page__header-text">Имя</h1>
   {{#> Form}}
-    {{> Input label="Почта" type="email" name="email" inputLayoutClass="horizontal" }}
-    {{> Input label="Логин" type="text" name="login" inputLayoutClass="horizontal" }}
-    {{> Input label="Имя" type="text" name="first_name" inputLayoutClass="horizontal" }}
-    {{> Input label="Фамилия" type="text" name="second_name" inputLayoutClass="horizontal" }}
-    {{> Input label="Имя в чате" type="text" name="display_name" inputLayoutClass="horizontal" }}
-    {{> Input label="Телефон" type="tel" name="phone" inputLayoutClass="horizontal" }}
-    {{> Button label="Сохранить" type="submit" }}
+    {{{ InputField label="Почта" type="email" name="email" inputLayoutClass="horizontal" ref="emailInput" validate=validate.email }}}
+    {{{ InputField label="Логин" type="text" name="login" inputLayoutClass="horizontal" ref="loginInput" validate=validate.login }}}
+    {{{ InputField label="Имя" type="text" name="first_name" inputLayoutClass="horizontal" ref="fnameInput" validate=validate.fname }}}
+    {{{ InputField label="Фамилия" type="text" name="second_name" inputLayoutClass="horizontal" ref="snameInput" validate=validate.sname }}}
+    {{{ InputField label="Имя в чате" type="text" name="display_name" inputLayoutClass="horizontal" ref="dnameInput" validate=validate.dname }}}
+    {{{ InputField label="Телефон" type="tel" name="phone" inputLayoutClass="horizontal" ref="phoneInput" validate=validate.phone }}}
+    {{{ Button label="Сохранить" type="submit" onClick=onSaveInfo }}}
   {{/Form}}
-  {{> Button label="Изменить пароль" type="text" }}
-  {{> Link label="Выйти" page="auth" class="warning" }}
+  {{{ Button label="Изменить пароль" type="text" onClick=onOpenPopupClick }}}
+  {{{ Link label="Выйти" page="auth" class="warning" }}}
+  {{{ ChangePasswordModal ref="popup"}}}
+  {{{ UploadModal ref="uploadPopup" }}}
 {{/Page}}

@@ -1,3 +1,62 @@
+@import '../../assets/variables.less';
+
+
 .chat-card {
   height: 50px;
+  padding: 4px 12px;
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &:not(:last-child) {
+    border-bottom: @block-border;
+  }
+
+  &__info {
+    margin-left: 8px;
+    font-size: @chat-info-size;
+
+    .info__title {
+      font-size: @chat-title-size;
+      display: block;
+      text-align: start;
+      margin-bottom: 10px;
+    }
+
+    .info__data {
+      display: flex;
+
+      .info__message {
+        color: @label-color;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 65%;
+        display: block;
+        text-wrap: nowrap;
+      }
+    }
+
+  }
+
+  &__time {
+    position: absolute;
+    right: 7px;
+    top: 4px;
+    font-size: @chat-info-size;
+  }
+
+  &__messages-number {
+    position: absolute;
+    right: 7px;
+    bottom: 25%;
+    font-size: @chat-info-size;
+    height: 20px;
+    width: 20px;
+    background: @highlight-color;
+    color: @white-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
 }
