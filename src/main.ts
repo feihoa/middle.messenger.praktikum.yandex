@@ -3,6 +3,7 @@ import * as Components from './components';
 import { registerComponent } from './utils/registerComponent';
 import { navigate } from './utils/navigate';
 import './utils/helpers';
+import "../index.less";
 
 
 Object.entries(Components).forEach(([name, component]) => {
