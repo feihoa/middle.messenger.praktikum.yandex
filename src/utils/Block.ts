@@ -4,7 +4,7 @@ import Handlebars from "handlebars";
 
 
 export interface IPropsBase {
-  events: unknown;
+  events: Record<string, (e: KeyboardEvent) => void>;
 }
 
 //может быть любым
