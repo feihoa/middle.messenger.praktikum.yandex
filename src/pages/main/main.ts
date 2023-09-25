@@ -1,8 +1,12 @@
 import Block from "../../utils/Block";
 import main from './main.hbs?raw';
 
+interface IProps {
+  onAdd: (event: Event) => void;
+  onRemove: (event: Event) => void;
+}
 
-export class MainPage extends Block {
+export class MainPage extends Block<IProps> {
   constructor() {
     super({
       onAdd: (event: Event) => {

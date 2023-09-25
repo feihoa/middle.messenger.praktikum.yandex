@@ -3,7 +3,13 @@ import { nanoid } from 'nanoid';
 import Handlebars from "handlebars";
 
 
-class Block {
+export interface IPropsBase {
+  events: unknown;
+}
+
+//может быть любым
+//eslint-disable-next-line
+class Block<T extends { [s: string]: any}> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -12,17 +18,14 @@ class Block {
   };
 
   public id = nanoid(6);
-  //может быть любым
-  //eslint-disable-next-line
-  protected props: any;
-  protected refs: Record<string, Block> = {};
-  public children: Record<string, Block>;
+  protected props: T;
+  protected refs: Record<string, Block<T>> = {};
+  public children: Record<string, Block<T>>;
   private eventBus: () => EventBus;
   private _element: HTMLElement | null = null;
 
-  //может быть любым
-  //eslint-disable-next-line
-  constructor(propsWithChildren: any = {}) {
+
+  constructor(propsWithChildren: T = {} as T) {
     const eventBus = new EventBus();
 
     const { props, children } = this._getChildrenAndProps(propsWithChildren);
@@ -36,32 +39,45 @@ class Block {
     eventBus.emit(Block.EVENTS.INIT);
   }
 
-  //eslint-disable-next-line
-  _getChildrenAndProps(childrenAndProps: Record<string, any>) {
-    //eslint-disable-next-line
-    const props: Record<string, any> = {};
-    const children: Record<string, Block> = {};
+  private _getChildrenAndProps(childrenAndProps: T = {} as T) {
+    const props: T = {} as T;
+    const children: Record<string, Block<T>> = {};
 
     Object.entries(childrenAndProps).forEach(([key, value]) => {
       if (value instanceof Block) {
         children[key] = value;
       } else {
-        props[key] = value;
+        props[key as keyof T] = value;
       }
     });
 
     return { props, children };
   }
 
-  _addEvents() {
-    const { events = {} } = this.props as { events: Record<string, () => void> };
+  private _addEvents() {
+    const { events } = this.props as { events?: T };
+
+    if (!events) {
+      return;
+    }
 
     Object.keys(events).forEach(eventName => {
-      this._element?.addEventListener(eventName, events[eventName]);
+      this._element?.addEventListener(eventName, events[eventName as keyof T]);
     });
   }
 
-  _registerEvents(eventBus: EventBus) {
+  private _removeEvents() {
+    const { events } = this.props as { events?: T };
+
+    if (!events) {
+      return;
+    }
+    Object.keys(events).forEach(eventName => {
+      this._element?.removeEventListener(eventName, events[eventName as keyof T]);
+    });
+  }
+
+  private _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
@@ -90,21 +106,18 @@ class Block {
     Object.values(this.children).forEach(child => child.dispatchComponentDidMount());
   }
 
-  //eslint-disable-next-line
-  private _componentDidUpdate(oldProps: Record<string, any>, newProps: Record<string, any>) {
+  private _componentDidUpdate(oldProps: T, newProps: T) {
     if (this.componentDidUpdate(oldProps, newProps)) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
-  //eslint-disable-next-line
-  protected componentDidUpdate(oldProps: Record<string, any>, newProps: Record<string, any>) {
+  protected componentDidUpdate(oldProps: T, newProps: T) {
     console.log(oldProps, newProps);
     return true;
   }
 
-  //eslint-disable-next-line
-  setProps = (nextProps: Record<string, any>,) => {
+  setProps = (nextProps: Record<string, unknown>,) => {
     if (!nextProps) {
       return;
     }
@@ -126,13 +139,12 @@ class Block {
     }
 
     this._element = newElement;
-
+    this._removeEvents();
     this._addEvents();
     this._componentDidMount();
   }
-  // множество доступных типов
-  //eslint-disable-next-line
-  private compile(template: string, context: any) {
+
+  private compile(template: string, context: T) {
     const contextAndStubs = { ...context, __refs: this.refs };
 
     const html = Handlebars.compile(template)(contextAndStubs);
@@ -141,8 +153,7 @@ class Block {
 
     temp.innerHTML = html;
 
-    //eslint-disable-next-line
-    contextAndStubs.__children?.forEach(({ embed }: any) => {
+    contextAndStubs.__children?.forEach(({ embed }: { embed: (content: DocumentFragment) => void })  => {
       embed(temp.content);
     });
 
@@ -157,17 +168,16 @@ class Block {
     return this.element;
   }
 
-  //eslint-disable-next-line
-  _makePropsProxy(props: any) {
+  _makePropsProxy(props: T) {
     return new Proxy(props, {
       get(target, prop) {
-        const value = target[prop];
+        const value = target[prop as keyof T];
         return typeof value === "function" ? value.bind(target) : value;
       },
       set: (target, prop, value) => {
         const oldTarget = { ...target }
 
-        target[prop] = value;
+        target[prop as keyof T] = value;
 
         this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
         return true;

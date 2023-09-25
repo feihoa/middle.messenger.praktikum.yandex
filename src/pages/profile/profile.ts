@@ -3,8 +3,14 @@ import Block from "../../utils/Block";
 import { Validators } from "../../utils/validators";
 import profile from './profile.hbs?raw';
 
+interface IProps {
+  validate: Record<string, (v: string) => void>;
+  onOpenPopupClick: (event: Event) => void;
+  onUploadIcon: (event: Event) => void;
+  onSaveInfo: (event: Event) => void;
+}
 
-export class ProfilePage extends Block {
+export class ProfilePage extends Block<IProps> {
   constructor() {
     super({
       validate: {
@@ -29,7 +35,7 @@ export class ProfilePage extends Block {
         const formData: { [key: string]: string } = {};
         for (const ref in this.refs) {
           if (Object.prototype.hasOwnProperty.call(this.refs, ref) && ref.includes('Input')) {
-            formData[ref] = (<InputField>this.refs[ref]).value();
+            formData[ref] = (this.refs[ref] as unknown as InputField).value();
           }
         }
 

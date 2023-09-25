@@ -5,7 +5,12 @@ import { Validators } from "../../utils/validators";
 import auth from './auth.hbs?raw';
 
 
-export class AuthPage extends Block {
+interface IProps {
+  validate: Record<string, (v: string) => void>;
+  onAuth: (event: Event) => void;
+}
+
+export class AuthPage extends Block<IProps> {
   constructor() {
     super({
       validate: {
@@ -15,8 +20,8 @@ export class AuthPage extends Block {
       onAuth: (event: Event) => {
         event.preventDefault();
 
-        const login = (<InputField>this.refs.login).value();
-        const password = (<InputField>this.refs.password).value();
+        const login = (this.refs.login as unknown as InputField).value();
+        const password = (this.refs.password as unknown as InputField).value();
 
         if (this.hasWrongValues({ login, password })) {
           return;

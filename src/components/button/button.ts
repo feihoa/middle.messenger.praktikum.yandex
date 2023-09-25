@@ -1,15 +1,15 @@
-import Block from "../../utils/Block";
+import Block, { IPropsBase } from "../../utils/Block";
 import button from './button.hbs?raw';
 
 
-interface IProps {
-  type: 'submit' | '',
-  class: string,
-  label: string,
-  onClick: () => void
+interface IProps extends IPropsBase {
+  type: 'submit' | '';
+  class: string;
+  label: string;
+  onClick: () => void;
 }
 
-export class Button extends Block {
+export class Button extends Block<IProps> {
   constructor(props: IProps) {
     super(props);
     this.props.events = {

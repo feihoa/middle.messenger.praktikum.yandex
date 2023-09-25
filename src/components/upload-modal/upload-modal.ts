@@ -3,15 +3,21 @@ import Block from "../../utils/Block";
 import { Validators } from "../../utils/validators";
 import uploadModal from './upload-modal.hbs?raw';
 
+interface IProps {
+  onChange: () => void;
+  closePopup: (e: Event) => void;
+  onSave: (e: Event) => void;
+  validate: Record<string, (v: File) => void>;
+}
 
-export class UploadModal extends Block {
+export class UploadModal extends Block<IProps> {
   constructor() {
     super({
       onChange: () => {
-        const value = (<InputField>this.refs.imageFile).value();
+        const value = (this.refs.imageFile as unknown as InputField).value();
         if (value) {
           this.refs.imageFile.setProps({ text: 'Успешно загружено' });
-          (<InputField>this.refs.imageFile).value = () => value;
+          (this.refs.imageFile as unknown as InputField).value = () => value;
         }
       },
       closePopup: (event: Event) => {
@@ -26,7 +32,7 @@ export class UploadModal extends Block {
       onSave: (event: Event) => {
         event.preventDefault();
 
-        const imageFile = (<InputField>this.refs.imageFile).value();
+        const imageFile = (this.refs.imageFile as unknown as InputField).value();
 
         if (!imageFile) {
           return;

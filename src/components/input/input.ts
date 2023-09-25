@@ -1,8 +1,8 @@
-import Block from "../../utils/Block";
+import Block, { IPropsBase } from "../../utils/Block";
 import input from './input.hbs?raw';
 
 
-interface IProps {
+interface IProps extends IPropsBase {
   classNames: string;
   placeholder: string;
   type: string;
@@ -12,7 +12,7 @@ interface IProps {
   onChange: () => void;
 }
 
-export class Input extends Block {
+export class Input extends Block<IProps> {
   constructor(props: IProps) {
     super({
       ...props,

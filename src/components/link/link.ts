@@ -1,16 +1,16 @@
-import Block from "../../utils/Block";
+import Block, { IPropsBase } from "../../utils/Block";
 import { navigate } from "../../utils/navigate";
 import link from './link.hbs?raw';
 
 
-interface IProps {
+interface IProps extends IPropsBase {
   class: string;
   label: string;
   page: string;
   onClick?: () => void;
 }
 
-export class Link extends Block {
+export class Link extends Block<IProps> {
   constructor(props: IProps) {
     super(props);
     this.props.events = {

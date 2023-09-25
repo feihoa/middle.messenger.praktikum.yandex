@@ -5,7 +5,12 @@ import { Validators } from "../../utils/validators";
 import register from './register.hbs?raw';
 
 
-export class RegisterPage extends Block {
+interface IProps {
+  validate: Record<string, (v: string) => void>;
+  onRegister: (event: Event) => void;
+}
+
+export class RegisterPage extends Block<IProps> {
   constructor() {
     super({
       validate: {
@@ -23,7 +28,7 @@ export class RegisterPage extends Block {
         const formData: { [key: string]: string } = {};
         for (const ref in this.refs) {
           if (Object.prototype.hasOwnProperty.call(this.refs, ref)) {
-            formData[ref] = (<InputField>this.refs[ref]).value();
+            formData[ref] = (this.refs[ref] as unknown as InputField).value();
           }
         }
 

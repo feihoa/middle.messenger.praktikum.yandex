@@ -1,13 +1,15 @@
-import Block from "../../utils/Block";
+import Block, { IPropsBase } from "../../utils/Block";
 import uploadInput from './upload-input.hbs?raw';
 import uploadImg from '../../assets/icons/attach.svg';
 
-interface IProps {
+interface IProps extends IPropsBase {
   text?: string;
   onChange: () => void;
+  onEnter: (e: KeyboardEvent) => void;
+  validate?: (v: string) => string;
 }
 
-export class UploadInput extends Block {
+export class UploadInput extends Block<IProps> {
   constructor(props: IProps) {
     super(props);
     this.props.events = {

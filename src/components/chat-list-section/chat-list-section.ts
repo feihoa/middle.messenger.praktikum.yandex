@@ -3,13 +3,17 @@ import Block from "../../utils/Block";
 import chatListSection from './chat-list-section.hbs?raw';
 
 
-export class ChatListSection extends Block {
+interface IProps {
+  onSearch: (e: Event) => void;
+}
+
+export class ChatListSection extends Block<IProps> {
   constructor() {
     super({
       onSearch: (event: Event) => {
         event.preventDefault();
 
-        const search = (<InputField>this.refs.search).value();
+        const search = (this.refs.search as unknown as InputField).value();
 
         console.log({
           search,

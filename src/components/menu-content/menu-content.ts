@@ -1,12 +1,13 @@
-import Block from "../../utils/Block";
+import Block, { IPropsBase } from "../../utils/Block";
 import menuContent from './menu-content.hbs?raw';
 
-interface IProps {
+interface IProps extends IPropsBase {
   onAdd: () => void;
   onRemove: () => void;
+  onOpen: (e: Event) => void;
 }
 
-export class MenuContent extends Block {
+export class MenuContent extends Block<IProps> {
 
   openState: boolean = false;
 

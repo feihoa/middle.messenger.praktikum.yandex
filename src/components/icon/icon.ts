@@ -1,15 +1,15 @@
-import Block from "../../utils/Block";
+import Block, { IPropsBase } from "../../utils/Block";
 import icon from './icon.hbs?raw';
 
 
-interface IProps {
+interface IProps extends IPropsBase {
   alt: string,
   class: string,
   src: string,
   onClick: () => void
 }
 
-export class Icon extends Block {
+export class Icon extends Block<IProps> {
   constructor(props: IProps) {
     super(props);
     this.props.events = {

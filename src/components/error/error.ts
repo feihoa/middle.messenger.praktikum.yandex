@@ -7,7 +7,7 @@ interface IProps {
   text: string;
 }
 
-export class Error extends Block {
+export class Error extends Block<IProps> {
   constructor(props: IProps) {
     super(props);
   }

@@ -7,9 +7,12 @@ import removeAddUserModal from './remove-add-user-modal.hbs?raw';
 interface IProps {
   title: string;
   btnLabel: string;
+  closePopup: (event: Event) => void;
+  onSave: (event: Event) => void;
+  validate: Record<string, (v: string) => void>;
 }
 
-export class RemoveAddUserModal extends Block {
+export class RemoveAddUserModal extends Block<IProps> {
   constructor(props: IProps) {
     super({
       ...props,
@@ -23,7 +26,7 @@ export class RemoveAddUserModal extends Block {
       onSave: (event: Event) => {
         event.preventDefault();
         
-        const login = (<InputField>this.refs.login).value();
+        const login = (this.refs.login as unknown as InputField).value();
 
         if (!login) {
           return;

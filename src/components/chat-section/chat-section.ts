@@ -1,14 +1,18 @@
-import Block from "../../utils/Block";
+import Block, { IPropsBase } from "../../utils/Block";
 import { Validators } from "../../utils/validators";
 import { InputField } from "../inputField";
 import chatSection from './chat-section.hbs?raw';
 
-interface IProps {
+
+interface IProps extends IPropsBase {
+  validate: Record<string, (v: string) => void>;
+  onMessage: (e: Event) => void;
+  value: string;
   onAdd: () => void;
   onRemove: () => void;
 }
 
-export class ChatSection extends Block {
+export class ChatSection extends Block<IProps> {
   constructor(props: IProps) {
     super({
       ...props,
@@ -18,7 +22,7 @@ export class ChatSection extends Block {
       onMessage: (event: Event) => {
         event.preventDefault();
 
-        const message = (<InputField>this.refs.message).value();
+        const message = (this.refs.message as unknown as InputField).value();
 
         console.log({
           message,

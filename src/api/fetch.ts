@@ -11,6 +11,8 @@ type Options = {
   data?: { [key: string]: string };
 }
 
+type HTTPMethod = (url: string, options?: Options) => Promise<unknown>;
+
 function queryStringify(data: { [key: string]: string }) {
   const queryString = Object.keys(data).map(key => `${key}=${encodeURIComponent(data[key])}`).join('&');
   return queryString ? `?${queryString}` : '';
@@ -18,27 +20,27 @@ function queryStringify(data: { [key: string]: string }) {
 
 class HTTPTransport {
 
-  get = (url: string, options: Options = { timeout: 5000 }) => {
+  get: HTTPMethod = (url, options = { timeout: 5000 }) => {
     return this.request(url, {
       ...options, method: METHODS.GET,
       data: undefined
     }, options.timeout);
   };
-  put = (url: string, options: Options = { timeout: 5000 }) => {
+  put: HTTPMethod = (url, options = { timeout: 5000 }) => {
     return this.request(url, {
       ...options, method: METHODS.PUT,
       data: undefined
     }, options.timeout);
   };
 
-  post = (url: string, options: Options = { timeout: 5000 }) => {
+  post: HTTPMethod = (url, options = { timeout: 5000 }) => {
     return this.request(url, {
       ...options, method: METHODS.POST,
       data: undefined
     }, options.timeout);
   };
 
-  delete = (url: string, options: Options = { timeout: 5000 }) => {
+  delete: HTTPMethod = (url, options = { timeout: 5000 }) => {
     return this.request(url, {
       ...options, method: METHODS.DELETE,
       data: undefined

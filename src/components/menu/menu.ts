@@ -1,12 +1,12 @@
-import Block from "../../utils/Block";
+import Block, { IPropsBase } from "../../utils/Block";
 import menu from './menu.hbs?raw';
 
 
-interface IProps {
+interface IProps extends IPropsBase{
   onClick: () => void;
 }
 
-export class Menu extends Block {
+export class Menu extends Block<IProps> {
   constructor(props: IProps) {
     super(props);
     this.props.events = {

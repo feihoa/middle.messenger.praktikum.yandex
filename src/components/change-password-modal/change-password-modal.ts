@@ -4,7 +4,13 @@ import { Validators } from "../../utils/validators";
 import changePasswordModal from './change-password-modal.hbs?raw';
 
 
-export class ChangePasswordModal extends Block {
+interface IProps {
+  closePopup: (e: Event) => void;
+  onSave: (e: Event) => void;
+  validate: Record<string, (v: string) => void>;
+}
+
+export class ChangePasswordModal extends Block<IProps> {
   constructor() {
     super({
       closePopup: (event: Event) => {
@@ -21,7 +27,7 @@ export class ChangePasswordModal extends Block {
         const formData: {[key: string]: string} = {};
         for (const ref in this.refs) {
           if (Object.prototype.hasOwnProperty.call(this.refs, ref)) {
-            formData[ref] = (<InputField>this.refs[ref]).value();
+            formData[ref] = (this.refs[ref] as unknown as InputField).value();
           }
         }
 
