@@ -1,0 +1,14 @@
+<section class="chat-section">
+  <div class="chat-section__header">
+    <div class="header-info">{{{ Icon alt="avatar" class="small" src="{{src}}" }}}{{chatName}}</div>
+    {{{ MenuContent onRemove=onRemove onAdd=onAdd}}}
+  </div>
+  {{{ Chat }}}
+  <div class="chat-section__footer">
+    {{#> Form formLayout="horizontal" }}
+      {{{ UploadInput name="upload" }}}
+      {{{ InputField label="" type="text" name="message" placeholder="Сообщение" ref="message" validate=validate.message onEnter=onMessage }}}
+      {{{ Button label="🡆" type="submit" class="next" onClick=onMessage }}}
+    {{/Form}}
+  </div>
+</section>

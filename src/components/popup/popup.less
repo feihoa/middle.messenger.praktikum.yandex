@@ -2,7 +2,7 @@
 
 
 .popup {
-  background: @popup-color;
+  background: @white-color;
   position: relative;
   width: fit-content;
   height: fit-content;
@@ -10,8 +10,11 @@
   padding: 20px;
   border: @block-border;
   min-width: 300px;
-  min-height: 325px;
+  min-height: fit-content;
   z-index: 1001;
+  margin: auto;
+  top: 50%;
+  margin-top:-25%;
 
   &:empty {
     display: none;
@@ -22,22 +25,18 @@
     padding-bottom: 10px;
   }
 
-  &__close-button {
-    display: block;
-    background: none;
-    border: none;
-    width: fit-content;
-    padding: 0;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    cursor: pointer;
+  &__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
-.popup_overlay {
-  position: absolute;
+.popup-overlay {
+  position: fixed;
+  top: 0;
   width: 100%;
+  height: 100%;
   z-index: 1000;
   background: @popup-background-color;
 }

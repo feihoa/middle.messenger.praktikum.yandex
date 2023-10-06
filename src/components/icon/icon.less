@@ -12,6 +12,7 @@
 
   &__icon {
     background: transparent;
+
     &[src=''] {
       display: none;
     }
@@ -26,7 +27,14 @@
   }
 
   &_small {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
+    cursor: unset;
+
+    .icon-container__no-data {
+      font-size: @small-size;
+      left: 0;
+      top: 30%;
+    }
   }
 }

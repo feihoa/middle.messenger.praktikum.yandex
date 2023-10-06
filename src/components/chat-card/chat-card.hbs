@@ -1,3 +1,11 @@
 <li class="chat-card">
-  {{> Icon alt="avatar" }}
+  {{{ Icon alt="avatar" class="small" src="{{src}}" }}}
+  <div class="chat-card__info">
+    <span class="info__title">{{chatName}}</span>
+    <span class="info__data">
+      {{author}}:<span class="info__message">{{message}}</span>
+    </span>
+  </div>
+  <span class="chat-card__time">{{time}}</span>
+  <span class="chat-card__messages-number">{{unreadMessagesNumber}}</span>
 </li>
