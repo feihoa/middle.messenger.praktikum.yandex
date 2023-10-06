@@ -1,5 +1,5 @@
 import Block, { IPropsBase } from "../../utils/Block";
-import { navigate } from "../../utils/navigate";
+import { router } from "../../utils/Router";
 import link from './link.hbs?raw';
 
 
@@ -23,6 +23,6 @@ export class Link extends Block<IProps> {
   }
 
   private onClick() {
-    navigate(this.props.page);
+    router.go(this.props.page);
   }
 }

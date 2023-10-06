@@ -1,6 +1,6 @@
 import { InputField } from "../../components";
 import Block from "../../utils/Block";
-import { navigate } from "../../utils/navigate";
+import { router } from "../../utils/Router";
 import { Validators } from "../../utils/validators";
 import register from './register.hbs?raw';
 
@@ -37,7 +37,7 @@ export class RegisterPage extends Block<IProps> {
         }
 
         console.log(formData);
-        navigate('auth');
+        router.go('auth');
       }
     });
   }

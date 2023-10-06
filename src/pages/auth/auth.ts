@@ -1,6 +1,6 @@
 import { InputField } from "../../components";
 import Block from "../../utils/Block";
-import { navigate } from "../../utils/navigate";
+import { router } from "../../utils/Router";
 import { Validators } from "../../utils/validators";
 import auth from './auth.hbs?raw';
 
@@ -31,7 +31,7 @@ export class AuthPage extends Block<IProps> {
           login,
           password
         })
-        navigate('main');
+        router.go('main');
       }
     });
   }

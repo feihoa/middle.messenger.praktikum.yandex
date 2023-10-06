@@ -10,6 +10,7 @@ export interface IPropsBase {
 //может быть любым
 //eslint-disable-next-line
 class Block<T extends Record<string, any>> {
+
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -193,7 +194,7 @@ class Block<T extends Record<string, any>> {
   }
 
   show() {
-    this.getContent()!.style.display = "block";
+    this.getContent()!.style.display = "flex";
   }
 
   hide() {
@@ -208,6 +209,7 @@ class Block<T extends Record<string, any>> {
     }
     return false;
   }
+
 }
 
 export default Block;
