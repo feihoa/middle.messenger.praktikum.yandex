@@ -5,6 +5,7 @@
     <div class="popup__content" id="popup">
       {{#> Form}}
         {{{ InputField label="Логин" type="text" name="login" ref="login" validate=validate.login }}}
+        {{{ ErrorLine error=error ref="errorLine"}}}
         {{{ Button label=btnLabel onClick=onSave }}}
       {{/Form}}
     </div>

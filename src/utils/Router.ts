@@ -1,13 +1,14 @@
+import Block from './Block';
 import { Route } from './Route';
 import { pages } from './pages';
 
 
 class Router {
 
-  history: any = [];
+  history?: History;
   routes: Route[] = [];
-  private _currentRoute: any | null;
-  static __instance: any;
+  private _currentRoute?: Route | null;
+  static __instance: Router;
   private _rootQuery: 'app' | undefined;
 
   constructor(rootQuery: 'app') {
@@ -23,18 +24,18 @@ class Router {
     Router.__instance = this;
   }
 
-  use(pathname: string, block: unknown) {
+  use(pathname: string, block: Block<Record<string, unknown>>) {
     const route = new Route(pathname, block, { rootQuery: this._rootQuery || 'app' });
     this.routes.push(route);
     return this;
   }
 
   start() {
-    window.onpopstate = event => {
-      this._onRoute((<any>event.currentTarget!).location.pathname);
-    }
+    window.onpopstate = (event: PopStateEvent) => {
+      this._onRoute((event.currentTarget as Window)?.location.pathname);
+    };
 
-    this._onRoute(window.location.pathname);
+    setTimeout(() => this._onRoute(location.pathname));
   }
 
   _onRoute(pathname: string) {
@@ -51,28 +52,32 @@ class Router {
     route.render();
   }
 
-  go(pathname: string) {
-    this.history.pushState({}, '', pathname);
+  go(pathname: string, reload?: boolean) {
+    this.history!.pushState({}, '', pathname);
     this._onRoute(pathname);
+    if (reload) {
+      location.reload();
+    }
   }
 
   back() {
-    this.history.back()
+    this.history?.back()
   }
 
   forward() {
-    this.history.forward();
+    this.history?.forward();
   }
 
-  getRoute(pathname: string) {
+  getRoute(pathname: string): Route | undefined {
     return this.routes.find(route => route.match(pathname));
   }
+
 }
 
 const router = new Router('app');
 
 for (const key in pages) {
-  router.use(key, pages[key]);
+  router.use(key, pages[key] as unknown as Block<Record<string, unknown>>);
 }
 
 router.start();

@@ -1,11 +1,17 @@
-<li class="chat-card">
-  {{{ Icon alt="avatar" class="small" src="{{src}}" }}}
+<li class="chat-card chat-card_{{#ifeq currentChatId id}}selected{{/ifeq}}">
+  {{{ Icon alt="avatar" class="small" src="{{avatar}}" }}}
   <div class="chat-card__info">
-    <span class="info__title">{{chatName}}</span>
-    <span class="info__data">
-      {{author}}:<span class="info__message">{{message}}</span>
-    </span>
-  </div>
-  <span class="chat-card__time">{{time}}</span>
-  <span class="chat-card__messages-number">{{unreadMessagesNumber}}</span>
+    <span class="info__title">{{title}}</span>
+
+    {{#if lastMessage.content}}
+      <span class="info__data">
+          {{lastMessage.user}}:<span class="info__message">{{lastMessage.content}}</span>
+      </span>
+    </div>
+    <span class="chat-card__time">{{lastMessage.time}}</span>
+  {{/if}}
+  
+  {{#if unreadCount}}
+    <span class="chat-card__messages-number">{{unreadCount}}</span>
+  {{/if}}
 </li>

@@ -1,18 +1,19 @@
 {{#> Page type="profile" }}
-  {{{ Link label="Назад" page="main" class="upper" }}}
-  {{{ Icon alt="avatar" onClick=onUploadIcon}}}
-  <h1 class="page__header-text">Имя</h1>
+  {{{ Link label="Назад" page="back" class="upper" }}}
+  {{{ Icon alt="avatar" onClick=onUploadIcon ref="avatar" }}}
+  <h1 id="username" class="page__header-text"></h1>
   {{#> Form}}
-    {{{ InputField label="Почта" type="email" name="email" inputLayoutClass="horizontal" ref="emailInput" validate=validate.email }}}
-    {{{ InputField label="Логин" type="text" name="login" inputLayoutClass="horizontal" ref="loginInput" validate=validate.login }}}
-    {{{ InputField label="Имя" type="text" name="first_name" inputLayoutClass="horizontal" ref="fnameInput" validate=validate.fname }}}
-    {{{ InputField label="Фамилия" type="text" name="second_name" inputLayoutClass="horizontal" ref="snameInput" validate=validate.sname }}}
-    {{{ InputField label="Имя в чате" type="text" name="display_name" inputLayoutClass="horizontal" ref="dnameInput" validate=validate.dname }}}
-    {{{ InputField label="Телефон" type="tel" name="phone" inputLayoutClass="horizontal" ref="phoneInput" validate=validate.phone }}}
+    {{{ InputField label="Почта" type="email" name="email" inputLayoutClass="horizontal" ref="emailInput" validate=validate.email val='' }}}
+    {{{ InputField label="Логин" type="text" name="login" inputLayoutClass="horizontal" ref="loginInput" validate=validate.login val='' }}}
+    {{{ InputField label="Имя" type="text" name="first_name" inputLayoutClass="horizontal" ref="fnameInput" validate=validate.fname val='' }}}
+    {{{ InputField label="Фамилия" type="text" name="second_name" inputLayoutClass="horizontal" ref="snameInput" validate=validate.sname val='' }}}
+    {{{ InputField label="Имя в чате" type="text" name="display_name" inputLayoutClass="horizontal" ref="dnameInput" validate=validate.dname val='' }}}
+    {{{ InputField label="Телефон" type="tel" name="phone" inputLayoutClass="horizontal" ref="phoneInput" validate=validate.phone val='' }}}
+    {{{ ErrorLine error=error ref="errorLine"}}}
     {{{ Button label="Сохранить" type="submit" onClick=onSaveInfo }}}
   {{/Form}}
   {{{ Button label="Изменить пароль" type="text" onClick=onOpenPopupClick }}}
-  {{{ Link label="Выйти" page="auth" class="warning" }}}
+  {{{ Link label="Выйти" class="warning" ref="logout" onClick=onLogOut}}}
   {{{ ChangePasswordModal ref="popup"}}}
   {{{ UploadModal ref="uploadPopup" }}}
 {{/Page}}

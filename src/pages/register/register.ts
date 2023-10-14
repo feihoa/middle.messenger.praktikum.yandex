@@ -1,7 +1,8 @@
-import { InputField } from "../../components";
-import Block from "../../utils/Block";
-import { router } from "../../utils/Router";
-import { Validators } from "../../utils/validators";
+import { InputField } from '../../components';
+import { signup } from '../../services.ts/auth.service';
+import { CreateUser } from '../../types';
+import Block from '../../utils/Block';
+import { Validators } from '../../utils/validators';
 import register from './register.hbs?raw';
 
 
@@ -25,10 +26,10 @@ export class RegisterPage extends Block<IProps> {
       onRegister: (event: Event) => {
         event.preventDefault();
 
-        const formData: { [key: string]: string } = {};
+        const formData: CreateUser = {} as CreateUser;
         for (const ref in this.refs) {
-          if (Object.prototype.hasOwnProperty.call(this.refs, ref)) {
-            formData[ref] = (this.refs[ref] as unknown as InputField).value();
+          if (Object.prototype.hasOwnProperty.call(this.refs, ref) && ref !== 'errorLine') {
+            formData[this.refs[ref].name as keyof CreateUser] = (this.refs[ref] as unknown as InputField).value();
           }
         }
 
@@ -36,8 +37,15 @@ export class RegisterPage extends Block<IProps> {
           return;
         }
 
-        console.log(formData);
-        router.go('auth');
+        signup(formData)
+        .then(() => {
+          for (const ref in this.refs) {
+            if (Object.prototype.hasOwnProperty.call(this.refs, ref) && ref !== 'errorLine') {
+              this.refs[ref].setProps({val: ''});
+            }
+          }
+        })
+        .catch(error => this.refs.errorLine.setProps({ error }))
       }
     });
   }

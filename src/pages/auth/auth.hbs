@@ -3,7 +3,8 @@
   {{#> Form}}
     {{{ InputField label="Логин" type="text" name="login" ref="login" validate=validate.login }}}
     {{{ InputField label="Пароль" type="password" name="password" ref="password" validate=validate.password }}}
+    {{{ ErrorLine error=error ref="errorLine"}}}
     {{{ Button label="Войти" onClick=onAuth }}}
   {{/Form}}
-  {{{ Link label="Зарегистрироваться" page="register" }}}
+  {{{ Link label="Зарегистрироваться" page="/sign-up" }}}
 {{/Page}}

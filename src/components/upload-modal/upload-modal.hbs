@@ -5,6 +5,7 @@
     <div class="popup__content" id="popup">
       {{#> Form}}
         {{{ UploadInput name="upload" text="Выбрать фото на компьютере" ref="imageFile" validate=validate.imageFile onChange=onChange }}}
+        {{{ ErrorLine error=error ref="errorLine"}}}
         {{{ Button label="Сохранить" onClick=onSave }}}
       {{/Form}}
     </div>

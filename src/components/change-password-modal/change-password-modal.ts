@@ -1,6 +1,7 @@
-import { InputField } from "../../components";
-import Block from "../../utils/Block";
-import { Validators } from "../../utils/validators";
+import { InputField } from '../../components';
+import { changePassword } from '../../services.ts/user.service';
+import Block from '../../utils/Block';
+import { Validators } from '../../utils/validators';
 import changePasswordModal from './change-password-modal.hbs?raw';
 
 
@@ -23,24 +24,31 @@ export class ChangePasswordModal extends Block<IProps> {
       },
       onSave: (event: Event) => {
         event.preventDefault();
-        
-        const formData: {[key: string]: string} = {};
-        for (const ref in this.refs) {
-          if (Object.prototype.hasOwnProperty.call(this.refs, ref)) {
-            formData[ref] = (this.refs[ref] as unknown as InputField).value();
-          }
-        }
 
-        if (this.hasWrongValues(formData)) {
+        const oldPassword = (this.refs.password as unknown as InputField).value();
+        const newPassword = (this.refs.newPassword as unknown as InputField).value();
+        const rePassword = (this.refs.rePassword as unknown as InputField).value();
+
+        if (this.hasWrongValues({ oldPassword, newPassword }) || newPassword !== rePassword) {
+          this.refs.errorLine.setProps({ error: 'Пароли не совпадают' })
           return;
         }
-        this.hide();
+
+        changePassword({ oldPassword, newPassword })
+          .then(() => this.hide())
+          .catch(error => this.refs.errorLine.setProps({ error }));
       }
     });
+
     this.hide();
   }
 
   protected render(): string {
     return changePasswordModal;
   }
+
+  show() {
+    this.getContent()!.style.display = 'block';
+  }
+
 }

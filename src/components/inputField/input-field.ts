@@ -1,4 +1,4 @@
-import Block, { IPropsBase } from "../../utils/Block";
+import Block, { IPropsBase } from '../../utils/Block';
 import inputField from './input-field.hbs?raw';
 
 
@@ -11,6 +11,8 @@ interface IProps extends IPropsBase {
   onEnter: (e: KeyboardEvent) => void;
   onBlur: (e: KeyboardEvent) => void;
   validate?: (v: string) => string;
+  val?: string;
+  id?: string;
 }
 
 

@@ -1,7 +1,15 @@
 <div class="chats-container">
   <ul class="chats-container__list">
-    {{#each (chats)}}
-      {{> ChatCard }}
+    {{#each chats}}
+      {{{ ChatCard
+        id=id
+        title=title
+        avatar=avatar
+        lastMessage=lastMessage
+        unreadCount=unreadCount
+        currentChatId=@root.currentChatId
+        onClick=@root.onClick
+      }}}
     {{/each}}
   </ul>
 </div>

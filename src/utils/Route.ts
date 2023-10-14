@@ -1,16 +1,17 @@
-import Block from "./Block";
-import isEqual from "./isEqual";
-import render from "./render";
+import Block from './Block';
+import isEqual from './isEqual';
+import render from './render';
 
 
 export class Route {
 
   _pathname: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   _blockClass: any;
-  _block: any;
+  _block: Block<Record<string, unknown>> | null;
   _props: {rootQuery: 'app'};
 
-  constructor(pathname: string, view: unknown, props: {rootQuery: 'app'}) {
+  constructor(pathname: string, view: Block<Record<string, unknown>>, props: {rootQuery: 'app'}) {
     this._pathname = pathname;
     this._blockClass = view;
     this._block = null;
@@ -37,7 +38,7 @@ export class Route {
   render() {
     if (!this._block) {
       this._block = new this._blockClass();
-      render(this._props.rootQuery, this._block);
+      render(this._props.rootQuery, this._block!);
       return;
     }
 

@@ -1,5 +1,6 @@
 <section class="chats-list-section">
-  {{{ Link label="Профиль" page="profile" class="upper" }}}
+  {{{ Button label="+" type="text" class="next add-btn" onClick=onAddChat }}}
+  {{{ Link label="Профиль" page="/settings" class="upper" }}}
   <div class="form-container">
     {{#> Form formLayout="horizontal"}}
       {{{ InputField label="" placeholder="Поиск" type="text" ref="search" name="search" onEnter=onSearch validate=validate.search }}}
@@ -8,5 +9,5 @@
       </div>
     {{/Form}}
   </div>
-  {{{ ChatList }}}
+  {{{ ChatList chats=chats onClick=onChatClick currentChatId=currentChatId }}}
 </section>

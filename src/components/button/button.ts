@@ -1,4 +1,4 @@
-import Block, { IPropsBase } from "../../utils/Block";
+import Block, { IPropsBase } from '../../utils/Block';
 import button from './button.hbs?raw';
 
 
@@ -6,6 +6,7 @@ interface IProps extends IPropsBase {
   type: 'submit' | '';
   class: string;
   label: string;
+  id?: string;
   onClick: () => void;
 }
 

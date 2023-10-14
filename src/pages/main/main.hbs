@@ -1,6 +1,7 @@
 {{#> Page type="main" }}
-  {{{ ChatListSection }}}
-  {{{ ChatSection onAdd=onAdd onRemove=onRemove}}}
-  {{{ RemoveAddUserModal ref="addPopup" btnLabel="Добавить" title="Добавить пользователя" }}}
-  {{{ RemoveAddUserModal ref="removePopup" btnLabel="Удалить" title="Удалить пользователя" }}}
+  {{{ ChatListSection onAddChat=onAddChat chats=chats ref="chatListSection" onChatClick=onChatClick }}}
+  {{{ ChatSection onAdd=onAdd onRemove=onRemove ref="chatSection" currentChatId=currentChatId }}}
+  {{{ RemoveAddUserModal mode="add" ref="addPopup" btnLabel="Добавить" title="Добавить пользователя" currentChatId=currentChatId}}}
+  {{{ RemoveAddUserModal ref="removePopup" btnLabel="Удалить" title="Удалить пользователя" currentChatId=currentChatId}}}
+  {{{ AddChatModal ref="addChatPopup" btnLabel="Создать" title="Создать чат" }}}
 {{/Page}}

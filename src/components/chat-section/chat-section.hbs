@@ -1,14 +1,22 @@
 <section class="chat-section">
-  <div class="chat-section__header">
-    <div class="header-info">{{{ Icon alt="avatar" class="small" src="{{src}}" }}}{{chatName}}</div>
-    {{{ MenuContent onRemove=onRemove onAdd=onAdd}}}
+  {{#if currentChatId }}
+    <div class="chat-section__header">
+      <div class="header-info">{{{ Icon alt="avatar" class="small" src="{{src}}" }}}{{chatName}}</div>
+      {{{ MenuContent onRemove=onRemove onAdd=onAdd}}}
+  {{/if }}
   </div>
-  {{{ Chat }}}
-  <div class="chat-section__footer">
-    {{#> Form formLayout="horizontal" }}
-      {{{ UploadInput name="upload" }}}
-      {{{ InputField label="" type="text" name="message" placeholder="Сообщение" ref="message" validate=validate.message onEnter=onMessage }}}
-      {{{ Button label="🡆" type="submit" class="next" onClick=onMessage }}}
-    {{/Form}}
-  </div>
+    {{#if currentChatId }}
+    {{{ Chat currentChatId=currentChatId }}}
+    {{else}}
+      <span class="empty-state">Выберите один из доступных чатов или создайте новый</span>
+    {{/if}}
+  {{#if currentChatId }}
+    <div class="chat-section__footer">
+      {{#> Form formLayout="horizontal" }}
+        {{{ UploadInput name="upload" }}}
+        {{{ InputField id="send-message-input" label="" type="text" name="message" placeholder="Сообщение" ref="message" onEnter=onMessage }}}
+        {{{ Button id="send-message-button" label="🡆" type="submit" class="next" onClick=onMessage }}}
+      {{/Form}}
+    </div>
+  {{/if }}
 </section>

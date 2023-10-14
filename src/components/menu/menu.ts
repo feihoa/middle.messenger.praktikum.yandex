@@ -1,4 +1,4 @@
-import Block, { IPropsBase } from "../../utils/Block";
+import Block, { IPropsBase } from '../../utils/Block';
 import menu from './menu.hbs?raw';
 
 

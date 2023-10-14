@@ -1,4 +1,4 @@
-import Block, { IPropsBase } from "../../utils/Block";
+import Block, { IPropsBase } from '../../utils/Block';
 import menuContent from './menu-content.hbs?raw';
 
 interface IProps extends IPropsBase {
