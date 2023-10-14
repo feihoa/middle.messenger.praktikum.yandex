@@ -1,7 +1,7 @@
 export default function convertKeysToCamelCase(obj: Obj): Obj {
   const camelCaseObj: Obj = {} as Obj;
   for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
       const camelCaseKey = convertKeyToCamelCaseString(key);
       camelCaseObj[camelCaseKey as keyof Obj] = obj[key];
     }
