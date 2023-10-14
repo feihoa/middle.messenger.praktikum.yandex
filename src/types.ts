@@ -29,11 +29,11 @@ export type Chat = {
   id: string;
   title: string;
   avatar: string;
-  unreadCount: number;
-  createdBy: string;
-  lastMessage: {
+  unread_count: number;
+  created_by: string;
+  last_message: {
     user: Partial<User>;
-    time: Date;
+    time: string;
     content: string;
   }
 }

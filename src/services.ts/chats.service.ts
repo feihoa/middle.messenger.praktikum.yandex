@@ -1,6 +1,6 @@
 import ChatApi from '../api/Chat.api';
+import { Chat } from '../types';
 import { store } from '../utils/Store';
-import convertKeysToCamelCase from '../utils/convertKeysToCamelCase';
 import { isApiError } from '../utils/isApiError';
 
 
@@ -13,10 +13,16 @@ const getChats = async () => {
     throw Error(isApiError(chats) as string)
   }
 
-  return convertKeysToCamelCase(chats as Record<string, string>);
+  (chats as Chat[]).forEach(chat => {
+    if (chat?.last_message?.time) {
+      chat.last_message.time = convertDate(chat.last_message.time);
+    }
+  });
+
+
+  return chats as Record<string, string>;
 }
 
-//класс
 const createChat = async (title: string) => {
   const createChatId = await chatApi.create(title);
   if (isApiError(createChatId)) {
@@ -57,4 +63,10 @@ export {
   addUsersToChat,
   deleteUsersFromChat,
   getChatToken,
+}
+
+
+const convertDate = (date: string) => {
+  const newDate = new Date(date);
+  return newDate.toLocaleString();
 }
