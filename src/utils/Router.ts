@@ -1,9 +1,8 @@
 import Block from './Block';
 import { Route } from './Route';
-import { pages } from './pages';
 
 
-class Router {
+export class Router {
 
   history?: History;
   routes: Route[] = [];
@@ -17,14 +16,14 @@ class Router {
     }
 
     this.routes = [];
-    this.history = window.history;
+    this.history = history;
     this._currentRoute = null;
     this._rootQuery = rootQuery;
 
     Router.__instance = this;
   }
 
-  use(pathname: string, block: Block<Record<string, unknown>>) {
+  use(pathname: string, block: typeof Block<Record<string, unknown>>) {
     const route = new Route(pathname, block, { rootQuery: this._rootQuery || 'app' });
     this.routes.push(route);
     return this;
@@ -73,13 +72,3 @@ class Router {
   }
 
 }
-
-const router = new Router('app');
-
-for (const key in pages) {
-  router.use(key, pages[key] as unknown as Block<Record<string, unknown>>);
-}
-
-router.start();
-
-export { router };

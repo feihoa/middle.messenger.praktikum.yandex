@@ -31,4 +31,9 @@ export default class ChatApi {
     return chatApi.post(`/token/${chatId}`);
   }
 
+  async uploadChatAvatar(chatId: string, avatar: FormData) {
+    avatar.append('chatId', chatId);
+    return chatApi.put('/avatar', { file: avatar });
+  }
+
 }

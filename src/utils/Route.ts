@@ -6,12 +6,11 @@ import render from './render';
 export class Route {
 
   _pathname: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  _blockClass: any;
+  _blockClass: typeof Block<Record<string, unknown>>;
   _block: Block<Record<string, unknown>> | null;
   _props: {rootQuery: 'app'};
 
-  constructor(pathname: string, view: Block<Record<string, unknown>>, props: {rootQuery: 'app'}) {
+  constructor(pathname: string, view: typeof Block<Record<string, unknown>>, props: {rootQuery: 'app'}) {
     this._pathname = pathname;
     this._blockClass = view;
     this._block = null;

@@ -1,6 +1,6 @@
 import { HOST } from "../constants";
 
-enum METHODS {
+export enum METHODS {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',
@@ -16,7 +16,7 @@ type Options = {
 
 type HTTPMethod = (url: string, options?: Options) => Promise<unknown>;
 
-function queryStringify(data: { [key: string]: string }) {
+export function queryStringify(data: { [key: string]: string }) {
   const queryString = Object.keys(data).map(key => `${key}=${encodeURIComponent(data[key])}`).join('&');
   return queryString ? `?${queryString}` : '';
 }
@@ -31,29 +31,29 @@ export class HTTPTransport {
 
   get: HTTPMethod = (url, options = { timeout: 5000 }) => {
     return this.request(`${this.apiUrl}${url}`, {
-      ...options, method: METHODS.GET,
-    }, options.timeout);
+      ...options, method: METHODS.GET
+    });
   };
 
   put: HTTPMethod = (url, options = { timeout: 5000 }) => {
     return this.request(`${this.apiUrl}${url}`, {
-      ...options, method: METHODS.PUT,
-    }, options.timeout);
+      ...options, method: METHODS.PUT
+    });
   };
 
   post: HTTPMethod = (url, options = { timeout: 5000 }) => {
     return this.request(`${this.apiUrl}${url}`, {
-      ...options, method: METHODS.POST,
-    }, options.timeout);
+      ...options, method: METHODS.POST
+    });
   };
 
   delete: HTTPMethod = (url, options = { timeout: 5000 }) => {
     return this.request(`${this.apiUrl}${url}`, {
-      ...options, method: METHODS.DELETE,
-    }, options.timeout);
+      ...options, method: METHODS.DELETE
+    });
   };
 
-  request(url: string, options: Options, timeout = 5000) {
+  request(url: string, options: Options) {
     const { method, data, file } = options;
 
     return new Promise((resolve, reject) => {
@@ -71,13 +71,15 @@ export class HTTPTransport {
         }
       }
 
-      xhr.onload = function () {
-        let response = this.responseText;
-        try {
-          response = JSON.parse(this.responseText);
-        } catch (error) { /* empty */ }
-        finally {
-          resolve(response);
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+          let response = xhr.response;
+          try {
+            response = JSON.parse(response);
+          } catch (error) { /* empty */ }
+          finally {
+            resolve(response);
+          }
         }
       };
 
@@ -85,7 +87,9 @@ export class HTTPTransport {
       xhr.onerror = reject;
       xhr.ontimeout = reject;
 
-      setTimeout(() => xhr.abort(), timeout);
+      if (options.timeout) {
+        setTimeout(() => xhr.abort(), options.timeout);
+      }
 
       if (method === METHODS.GET) {
         xhr.send();

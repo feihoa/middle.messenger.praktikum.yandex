@@ -6,7 +6,7 @@ const userApi = new HTTPTransport('/user');
 export default class UserApi {
 
   async getUserById(userId: string) {
-    return userApi.get(userId);
+    return userApi.get(`/${userId}`);
   }
 
   async searchUsers(login: string) {

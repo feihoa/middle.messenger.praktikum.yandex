@@ -1,6 +1,7 @@
 import EventBus from './EventBus';
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
+import { sanitize } from './sanitizeHtml';
 
 
 export interface IPropsBase {
@@ -162,8 +163,7 @@ class Block<T extends Record<string, any>> {
     const html = Handlebars.compile(template)(contextAndStubs);
 
     const temp = document.createElement('template');
-
-    temp.innerHTML = html;
+    temp.innerHTML = sanitize(html);
 
     contextAndStubs.__children?.forEach(({ embed }: { embed: (content: DocumentFragment) => void })  => {
       embed(temp.content);
@@ -212,15 +212,6 @@ class Block<T extends Record<string, any>> {
   hide() {
     this._componentWillUnmount();
     this.getContent()!.style.display = 'none';
-  }
-
-  hasWrongValues(formData: { [key: string]: string }) {
-    for (const key in formData) {
-      if (Object.prototype.hasOwnProperty.call(formData, key) && formData[key] === '') {
-        return true;
-      }
-    }
-    return false;
   }
 
 }

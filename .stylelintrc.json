@@ -1,7 +1,7 @@
 {
   "extends": "stylelint-config-standard-less",
   "customSyntax": "postcss-less",
-  "ignoreFiles": ["**/*.{ts,hbs,css,ico,svg,md,js,json,html}", "**/normalize.less"],
+  "ignoreFiles": ["**/*.{ts,hbs,css,ico,svg,md,js,json,html,toml}", "**/normalize.less"],
   "rules": {
     "no-empty-source": null,
     "declaration-empty-line-before": "never",

@@ -1,7 +1,7 @@
 import { HOST } from './../../constants';
 import { InputField } from '../../components';
 import { EditProfile, User } from '../../types';
-import { changeProfileData } from '../../services.ts/user.service';
+import { changeProfileAvatar, changeProfileData } from '../../services.ts/user.service';
 import Block from '../../utils/Block';
 import { StoreEvents, store } from '../../utils/Store';
 import { convertKeyToCamelCaseString } from '../../utils/convertKeysToCamelCase';
@@ -15,6 +15,7 @@ interface IProps {
   onUploadIcon: (event: Event) => void;
   onSaveInfo: (event: Event) => void;
   onLogOut: (event: Event) => void;
+  onAvatarSave: (event: Event, formData: FormData) => Promise<unknown>;
 }
 
 export class ProfilePage extends Block<IProps> {
@@ -55,14 +56,19 @@ export class ProfilePage extends Block<IProps> {
         for (const ref in this.refs) {
           if (Object.prototype.hasOwnProperty.call(this.refs, ref) && ref.includes('Input')) {
             formData[this.refs[ref].name as keyof EditProfile] = (this.refs[ref] as unknown as InputField).value();
+            if ((this.refs[ref] as unknown as InputField).error) {
+              return;
+            }
           }
         }
 
-        if (this.hasWrongValues(formData)) {
-          return;
-        }
-
         changeProfileData(formData as EditProfile).catch(error => this.refs.errorLine.setProps({ error }));
+      },
+
+      onAvatarSave: (event: Event, formData: FormData): Promise<unknown> => {
+        event.preventDefault();
+
+        return changeProfileAvatar(formData);
       }
 
     });

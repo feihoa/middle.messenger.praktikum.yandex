@@ -20,23 +20,19 @@ export class AuthPage extends Block<IProps> {
       onAuth: (event: Event) => {
         event.preventDefault();
 
-        const login = (this.refs.login as unknown as InputField).value();
-        const password = (this.refs.password as unknown as InputField).value();
+        const login = (this.refs.login as unknown as InputField);
+        const password = (this.refs.password as unknown as InputField);
 
-        if (this.hasWrongValues({ login, password })) {
+        if (login.error || password.error) {
           return;
         }
 
-        if (!password || !login) {
-          return;
-        }
-
-        signin({ login, password })
-        .then(() => {
-          this.refs.login.setProps({val: ''});
-          this.refs.password.setProps({val: ''});
-        })
-        .catch(error => this.refs.errorLine.setProps({ error }))
+        signin({ login: login.value(), password: password.value() })
+          .then(() => {
+            this.refs.login.setProps({ val: '' });
+            this.refs.password.setProps({ val: '' });
+          })
+          .catch(error => this.refs.errorLine.setProps({ error }));
       }
     });
   }

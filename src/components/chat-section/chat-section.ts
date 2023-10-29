@@ -7,8 +7,10 @@ interface IProps extends IPropsBase {
   onMessage: (e: Event) => void;
   currentChatId: string;
   value: string;
+  avatar: string;
   onAdd: () => void;
   onRemove: () => void;
+  onUploadIcon: () => void;
 }
 
 export class ChatSection extends Block<IProps> {
@@ -17,9 +19,10 @@ export class ChatSection extends Block<IProps> {
     this.props.events = {
       onAdd: () => props.onAdd(),
       onRemove: () => props.onRemove(),
+      onUploadIcon: () => props.onUploadIcon,
     }
   }
-  
+
   protected render(): string {
     return chatSection;
   }
