@@ -5,7 +5,6 @@ type CompareValue = number | string | symbol | undefined | null | Handlebars.Hel
 Handlebars.registerHelper('ifeq', function <T>(this: T, ...args: CompareValue[]) {
   const options = <Handlebars.HelperOptions>args.pop()!;
 
-  console.log(this, args)
   if (!args) {
     return options.inverse(this);
   }

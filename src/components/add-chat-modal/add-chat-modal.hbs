@@ -1,0 +1,13 @@
+<div class="popup-overlay">
+  <div class="popup">
+    {{{ Button label="❌" type="text" class="close-popup" onClick=closePopup }}}
+    <h1 class="popup__header-text">{{title}}</h1>
+    <div class="popup__content" id="popup">
+      {{#> Form}}
+        {{{ InputField label="Название" type="text" name="title" ref="title" validate=validate.title }}}
+        {{{ ErrorLine error=error ref="errorLine"}}}
+        {{{ Button label=btnLabel onClick=onSave }}}
+      {{/Form}}
+    </div>
+  </div>
+</div>

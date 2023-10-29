@@ -1,4 +1,4 @@
-import Block, { IPropsBase } from "../../utils/Block";
+import Block, { IPropsBase } from '../../utils/Block';
 import input from './input.hbs?raw';
 
 
@@ -7,6 +7,8 @@ interface IProps extends IPropsBase {
   placeholder: string;
   type: string;
   name: string;
+  val?: string;
+  id?: string;
   onBlur: () => void;
   onEnter: () => void;
   onChange: () => void;

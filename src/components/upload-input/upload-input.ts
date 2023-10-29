@@ -1,4 +1,4 @@
-import Block, { IPropsBase } from "../../utils/Block";
+import Block, { IPropsBase } from '../../utils/Block';
 import uploadInput from './upload-input.hbs?raw';
 import uploadImg from '../../assets/icons/attach.svg';
 

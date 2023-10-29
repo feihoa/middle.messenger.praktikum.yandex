@@ -1,7 +1,5 @@
 export { Form } from './form';
 export { Page } from './page';
-export { ChatCard } from './chat-card';
-export { MessageBlock } from './message-block';
 export { Button } from './button';
 export { Input } from './input';
 export { InputField } from './inputField';
@@ -19,3 +17,5 @@ export { ChatSection } from './chat-section';
 export { ChangePasswordModal } from './change-password-modal';
 export { RemoveAddUserModal } from './remove-add-user-modal/';
 export { UploadModal } from './upload-modal/';
+export { AddChatModal } from './add-chat-modal/';
+export { ChatCard } from './chat-card';

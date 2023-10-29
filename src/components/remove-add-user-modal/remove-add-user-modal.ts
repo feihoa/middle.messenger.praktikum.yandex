@@ -1,6 +1,8 @@
-import { InputField } from "../../components";
-import Block from "../../utils/Block";
-import { Validators } from "../../utils/validators";
+import { InputField } from '../../components';
+import { addUsersToChat, deleteUsersFromChat } from '../../services.ts/chats.service';
+import { searchUsers } from '../../services.ts/user.service';
+import Block from '../../utils/Block';
+import { Validators } from '../../utils/validators';
 import removeAddUserModal from './remove-add-user-modal.hbs?raw';
 
 
@@ -10,6 +12,8 @@ interface IProps {
   closePopup: (event: Event) => void;
   onSave: (event: Event) => void;
   validate: Record<string, (v: string) => void>;
+  mode?: 'add';
+  currentChatId: string;
 }
 
 export class RemoveAddUserModal extends Block<IProps> {
@@ -32,10 +36,21 @@ export class RemoveAddUserModal extends Block<IProps> {
           return;
         }
 
-        console.log({
-          login,
+        const req = props.mode ? addUsersToChat : deleteUsersFromChat;
+
+        searchUsers(login)
+        .then(res => {
+          if (!res.length) {
+            this.refs.errorLine.setProps({ error: "Ничего не найдено" })
+          } else if (res.length === 1) {
+            req(res[0].id, this.props.currentChatId)
+            .then(() => this.hide())
+            // .catch(error => this.refs.errorLine.setProps({ error }));
+          } else {
+            this.refs.errorLine.setProps({ error: "Найдено несколько результатов" })
+          }
         })
-        this.hide();
+        // .catch(error => this.refs.errorLine.setProps({ error }));
       }
     });
     this.hide();
@@ -44,4 +59,9 @@ export class RemoveAddUserModal extends Block<IProps> {
   protected render(): string {
     return removeAddUserModal;
   }
+
+  show() {
+    this.getContent()!.style.display = 'block';
+  }
+
 }

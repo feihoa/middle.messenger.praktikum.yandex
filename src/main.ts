@@ -1,10 +1,10 @@
 import Handlebars, { Template } from 'handlebars';
 import * as Components from './components';
 import { registerComponent } from './utils/registerComponent';
-import { navigate } from './utils/navigate';
 import './utils/helpers';
-import "../index.less";
+import '../index.less';
 import Block from './utils/Block';
+import { initApp } from './utils/initApp';
 
 
 Object.entries(Components).forEach(([name, component]) => {
@@ -15,4 +15,4 @@ Object.entries(Components).forEach(([name, component]) => {
   }
 });
 
-document.addEventListener('DOMContentLoaded', () => navigate('auth'));
+initApp(location.pathname);

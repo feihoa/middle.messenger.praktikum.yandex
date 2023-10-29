@@ -1,7 +1,7 @@
 type Value = string | number | symbol | null | undefined | File;
 
 export const Validators = {
-  required: (value: Value) => value !== null && value !== undefined && value !== "" ? null : 'Данное поле не может быть пустым',
+  required: (value: Value) => value !== null && value !== undefined && value !== '' ? null : 'Данное поле не может быть пустым',
   min: (num: number) => (value: Value) => String(value).length >= num ? null : `Должно быть более ${num} символов`,
   max: (num: number) => (value: Value) => String(value).length <= num ? null : `Должно быть не более ${num} символов`,
   //eslint-disable-next-line 

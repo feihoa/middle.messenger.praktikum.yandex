@@ -1,4 +1,4 @@
-import Block from "../../utils/Block";
+import Block from '../../utils/Block';
 import error404 from './404.hbs?raw';
 
 

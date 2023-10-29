@@ -1,16 +1,17 @@
 <div class="icon-container icon-container_{{class}}">
-  <img
-    class="icon-container__icon"
-    alt="{{alt}}"
-    src="{{src}}"
-  />
-  {{#ifeq src undefined }}
-    <span class="icon-container__no-data">
-      {{#ifeq class 'small' }}
-        Нет изображения
-      {{else}}
-        Загрузить изображение
-      {{/ifeq}}
-    </span>
-  {{/ifeq}}
+  {{#if src}}
+    <img
+      class="icon-container__icon"
+      alt="{{alt}}"
+      src="{{src}}"
+    />
+  {{else}}
+      <span class="icon-container__no-data">
+        {{#ifeq class 'small' }}
+          Нет изображения
+        {{else}}
+          Загрузить изображение
+        {{/ifeq}}
+      </span>
+  {{/if}}
 </div>

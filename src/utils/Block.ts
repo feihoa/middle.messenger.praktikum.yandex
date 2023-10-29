@@ -1,6 +1,6 @@
-import EventBus from "./EventBus";
+import EventBus from './EventBus';
 import { nanoid } from 'nanoid';
-import Handlebars from "handlebars";
+import Handlebars from 'handlebars';
 
 
 export interface IPropsBase {
@@ -10,11 +10,13 @@ export interface IPropsBase {
 //может быть любым
 //eslint-disable-next-line
 class Block<T extends Record<string, any>> {
+
   static EVENTS = {
-    INIT: "init",
-    FLOW_CDM: "flow:component-did-mount",
-    FLOW_CDU: "flow:component-did-update",
-    FLOW_RENDER: "flow:render"
+    INIT: 'init',
+    FLOW_CDM: 'flow:component-did-mount',
+    FLOW_CDU: 'flow:component-did-update',
+    FLOW_CWU: 'flow:component-will-unmount',
+    FLOW_RENDER: 'flow:render'
   };
 
   public id = nanoid(6);
@@ -24,6 +26,9 @@ class Block<T extends Record<string, any>> {
   private eventBus: () => EventBus;
   private _element: HTMLElement | null = null;
 
+  public get name(): string | undefined {
+    return this.props?.name;
+  }
 
   constructor(propsWithChildren: T = {} as T) {
     const eventBus = new EventBus();
@@ -36,6 +41,7 @@ class Block<T extends Record<string, any>> {
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
 
+    this._init();
     eventBus.emit(Block.EVENTS.INIT);
   }
 
@@ -81,6 +87,7 @@ class Block<T extends Record<string, any>> {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CWU, this._componentWillUnmount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
@@ -100,20 +107,25 @@ class Block<T extends Record<string, any>> {
   componentDidMount() {
   }
 
+  _componentWillUnmount() {
+    this.componentWillUnmount();
+  }
+
+  componentWillUnmount() {}
+
   public dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
 
     Object.values(this.children).forEach(child => child.dispatchComponentDidMount());
   }
 
-  private _componentDidUpdate(oldProps: T, newProps: T) {
-    if (this.componentDidUpdate(oldProps, newProps)) {
+  private _componentDidUpdate() {
+    if (this.componentDidUpdate()) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
-  protected componentDidUpdate(oldProps: T, newProps: T) {
-    console.log(oldProps, newProps);
+  protected componentDidUpdate() {
     return true;
   }
 
@@ -172,7 +184,7 @@ class Block<T extends Record<string, any>> {
     return new Proxy(props, {
       get(target, prop) {
         const value = target[prop as keyof T];
-        return typeof value === "function" ? value.bind(target) : value;
+        return typeof value === 'function' ? value.bind(target) : value;
       },
       set: (target, prop, value) => {
         const oldTarget = { ...target }
@@ -183,7 +195,7 @@ class Block<T extends Record<string, any>> {
         return true;
       },
       deleteProperty() {
-        throw new Error("Нет доступа");
+        throw new Error('Нет доступа');
       }
     });
   }
@@ -193,11 +205,13 @@ class Block<T extends Record<string, any>> {
   }
 
   show() {
-    this.getContent()!.style.display = "block";
+    this._componentDidMount();
+    this.getContent()!.style.display = 'flex';
   }
 
   hide() {
-    this.getContent()!.style.display = "none";
+    this._componentWillUnmount();
+    this.getContent()!.style.display = 'none';
   }
 
   hasWrongValues(formData: { [key: string]: string }) {
@@ -208,6 +222,7 @@ class Block<T extends Record<string, any>> {
     }
     return false;
   }
+
 }
 
 export default Block;

@@ -1,9 +1,10 @@
-import Block, { IPropsBase } from "../../utils/Block";
+import Block, { IPropsBase } from '../../utils/Block';
 import chat from './chat.hbs?raw';
 
 
 interface IProps extends IPropsBase {
-  onClick: () => void;
+  onClick: (e: Event) => void;
+  currentChatId: string;
 }
 
 export class Chat extends Block<IProps> {
@@ -17,4 +18,5 @@ export class Chat extends Block<IProps> {
   protected render(): string {
     return chat;
   }
+  
 }

@@ -9,12 +9,12 @@ https://www.figma.com/file/YMueg2uNFVx9SizxXlBdVS/%D0%9C%D0%B0%D0%BA%D0%B5%D1%82
 https://deploy--sunny-arithmetic-ef4208.netlify.app/
 
 ## Список страниц
-- auth Авторизация 
-- register Регистрация 
-- main Главная 
-- profile Профиль 
-- 404 Ошибка 404 
-- 500 Ошибка 5**
+- / Авторизация 
+- /sign-up Регистрация 
+- /messenger Главная 
+- /settings Профиль 
+- /404 Ошибка 404 
+- /500 Ошибка 5**
 
 ## Запуск проета
 - npm run dev - запуск окружения для локальной фронтэнд-разработки 

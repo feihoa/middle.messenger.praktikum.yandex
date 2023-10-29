@@ -1,7 +1,7 @@
-import { InputField } from "../../components";
-import Block from "../../utils/Block";
-import { navigate } from "../../utils/navigate";
-import { Validators } from "../../utils/validators";
+import { InputField } from '../../components';
+import { signin } from '../../services.ts/auth.service';
+import Block from '../../utils/Block';
+import { Validators } from '../../utils/validators';
 import auth from './auth.hbs?raw';
 
 
@@ -27,11 +27,16 @@ export class AuthPage extends Block<IProps> {
           return;
         }
 
-        console.log({
-          login,
-          password
+        if (!password || !login) {
+          return;
+        }
+
+        signin({ login, password })
+        .then(() => {
+          this.refs.login.setProps({val: ''});
+          this.refs.password.setProps({val: ''});
         })
-        navigate('main');
+        .catch(error => this.refs.errorLine.setProps({ error }))
       }
     });
   }

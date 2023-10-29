@@ -1,6 +1,6 @@
-import { InputField } from "..";
-import Block from "../../utils/Block";
-import { Validators } from "../../utils/validators";
+import { changeProfileAvatar } from '../../services.ts/user.service';
+import Block from '../../utils/Block';
+import { Validators } from '../../utils/validators';
 import uploadModal from './upload-modal.hbs?raw';
 
 interface IProps {
@@ -11,37 +11,52 @@ interface IProps {
 }
 
 export class UploadModal extends Block<IProps> {
+  file?: Element;
+
   constructor() {
     super({
       onChange: () => {
-        const value = (this.refs.imageFile as unknown as InputField).value();
+        const value = this.refs.imageFile.element?.firstElementChild;
         if (value) {
           this.refs.imageFile.setProps({ text: 'Успешно загружено' });
-          (this.refs.imageFile as unknown as InputField).value = () => value;
+          this.file = value;
+          console.log(value)
         }
       },
+
       closePopup: (event: Event) => {
         event.preventDefault();
         this.refs.imageFile.setProps({ text: 'Выбрать фото на компьютере' });
         this.clear();
         this.hide();
       },
+
       validate: {
         imageFile: (value: File) => Validators.required(value),
       },
+
       onSave: (event: Event) => {
         event.preventDefault();
 
-        const imageFile = (this.refs.imageFile as unknown as InputField).value();
-
+        const imageFile = (<HTMLInputElement>this.file)?.files?.[0];
+        console.log(imageFile)
         if (!imageFile) {
+          this.refs.errorLine.setProps({ error: 'Данное поле не может быть пустым' })
           return;
         }
+        const formData = new FormData();
+        formData.append('avatar', imageFile);
+
+        changeProfileAvatar(formData)
+        .then(() => {
+          this.clear();
+          this.hide();
+        })
+        .catch(error => this.refs.errorLine.setProps({ error }));
         
-        this.clear();
-        this.hide();
       }
     });
+
     this.hide();
   }
 
@@ -52,4 +67,9 @@ export class UploadModal extends Block<IProps> {
   protected render(): string {
     return uploadModal;
   }
+
+  show() {
+    this.getContent()!.style.display = 'block';
+  }
+
 }
