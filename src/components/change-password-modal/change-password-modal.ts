@@ -25,16 +25,19 @@ export class ChangePasswordModal extends Block<IProps> {
       onSave: (event: Event) => {
         event.preventDefault();
 
-        const oldPassword = (this.refs.password as unknown as InputField).value();
-        const newPassword = (this.refs.newPassword as unknown as InputField).value();
-        const rePassword = (this.refs.rePassword as unknown as InputField).value();
 
-        if (this.hasWrongValues({ oldPassword, newPassword }) || newPassword !== rePassword) {
-          this.refs.errorLine.setProps({ error: 'Пароли не совпадают' })
+        const oldPassword = (this.refs.password as unknown as InputField);
+        const newPassword = (this.refs.newPassword as unknown as InputField);
+        const rePassword = (this.refs.rePassword as unknown as InputField);
+
+        if (oldPassword.error || newPassword.error || rePassword.error) {
+          if (newPassword.value() !== rePassword.value()) {
+            this.refs.errorLine.setProps({ error: 'Пароли не совпадают' })
+          }
           return;
         }
 
-        changePassword({ oldPassword, newPassword })
+        changePassword({ oldPassword: oldPassword.value(), newPassword: newPassword.value() })
           .then(() => this.hide())
           .catch(error => this.refs.errorLine.setProps({ error }));
       }

@@ -22,3 +22,6 @@ https://deploy--sunny-arithmetic-ef4208.netlify.app/
 - npm run start - сборка проекта и запуск на 3000 порту
 - npm run eslint - запуск и автофикс eslint
 - npm run stylelint - запуск stylelint
+- npm run test - запуск тестов
+- npm run pre-commit: запуск и автофикс eslint, stylelint и тестов
+

@@ -1,6 +1,6 @@
 import AuthApi from '../api/Auth.api';
+import { router } from '../main';
 import { AuthUser, CreateUser } from '../types';
-import { router } from '../utils/Router';
 import { store } from '../utils/Store';
 import convertKeysToCamelCase from '../utils/convertKeysToCamelCase';
 import { initApp, unSubscribeFromStore } from '../utils/initApp';

@@ -1,4 +1,5 @@
 import ChatApi from '../api/Chat.api';
+import { HOST } from '../constants';
 import { Chat } from '../types';
 import { store } from '../utils/Store';
 import { isApiError } from '../utils/isApiError';
@@ -17,8 +18,11 @@ const getChats = async () => {
     if (chat?.last_message?.time) {
       chat.last_message.time = convertDate(chat.last_message.time);
     }
+    if (chat.avatar) {
+      chat.avatar = `${HOST}/resources${chat.avatar}`;
+    }
   });
-
+  
 
   return chats as Record<string, string>;
 }
@@ -56,6 +60,10 @@ const getChatToken = async (chatId: string) => {
   return chatApi.getChatToken(chatId);
 }
 
+const uploadChatAvatar = async (chatId: string, avatar: FormData) => {
+  return chatApi.uploadChatAvatar(chatId, avatar);
+}
+
 export {
   createChat,
   deleteChat,
@@ -63,6 +71,7 @@ export {
   addUsersToChat,
   deleteUsersFromChat,
   getChatToken,
+  uploadChatAvatar,
 }
 
 

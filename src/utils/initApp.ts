@@ -1,7 +1,7 @@
 import { unauthorizedUserRoutes } from "../constants";
+import { router } from "../main";
 import { getUser } from "../services.ts/auth.service";
 import { getChats } from "../services.ts/chats.service";
-import { router } from "./Router";
 import { StoreEvents, store } from "./Store";
 
 

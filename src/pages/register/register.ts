@@ -30,22 +30,21 @@ export class RegisterPage extends Block<IProps> {
         for (const ref in this.refs) {
           if (Object.prototype.hasOwnProperty.call(this.refs, ref) && ref !== 'errorLine') {
             formData[this.refs[ref].name as keyof CreateUser] = (this.refs[ref] as unknown as InputField).value();
+            if ((this.refs[ref] as unknown as InputField).error) {
+              return;
+            }
           }
-        }
-
-        if (this.hasWrongValues(formData)) {
-          return;
         }
 
         signup(formData)
-        .then(() => {
-          for (const ref in this.refs) {
-            if (Object.prototype.hasOwnProperty.call(this.refs, ref) && ref !== 'errorLine') {
-              this.refs[ref].setProps({val: ''});
+          .then(() => {
+            for (const ref in this.refs) {
+              if (Object.prototype.hasOwnProperty.call(this.refs, ref) && ref !== 'errorLine') {
+                this.refs[ref].setProps({ val: '' });
+              }
             }
-          }
-        })
-        .catch(error => this.refs.errorLine.setProps({ error }))
+          })
+          .catch(error => this.refs.errorLine.setProps({ error }))
       }
     });
   }

@@ -1,8 +1,8 @@
 <section class="chat-section">
   {{#if currentChatId }}
     <div class="chat-section__header">
-      <div class="header-info">{{{ Icon alt="avatar" class="small" src="{{src}}" }}}{{chatName}}</div>
-      {{{ MenuContent onRemove=onRemove onAdd=onAdd}}}
+      <div class="header-info">{{{ Icon src=avatar alt="avatar" class="small" ref="icon" onClick=onUploadIcon }}}{{chatName}}</div>
+      {{{ MenuContent onRemove=onRemove onAdd=onAdd }}}
   {{/if }}
   </div>
     {{#if currentChatId }}

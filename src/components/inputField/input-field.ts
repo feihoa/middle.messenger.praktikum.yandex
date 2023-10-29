@@ -15,8 +15,12 @@ interface IProps extends IPropsBase {
   id?: string;
 }
 
-
 export class InputField extends Block<IProps> {
+
+  get error() {
+    return !this.validate();
+  }
+  
   constructor(props: IProps) {
     super({
       ...props,

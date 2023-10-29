@@ -1,5 +1,5 @@
+import { router } from '../../main';
 import Block, { IPropsBase } from '../../utils/Block';
-import { router } from '../../utils/Router';
 import link from './link.hbs?raw';
 
 
